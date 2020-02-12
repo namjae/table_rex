@@ -1528,4 +1528,72 @@ defmodule TableRex.Renderer.TextTest do
            +--------------------+--------------------------+------------+
            """
   end
+
+  # test "multiple lines in a cell", %{
+  #   table: table
+  # } do
+
+  #   # rows = [
+  #   #   ["Eunmi Lee\nKorean singer that I like", "I Have a Lover", 1999]]
+  #   rows = [
+  #     ["Eunmi Lee Korean singer that I like", "I Have a Lover", 1999]]
+
+  #   {:ok, rendered} =
+  #     table
+  #     |> Table.add_rows(rows)
+  #     |> Table.put_title("Renegade Hardware Releases That Are Present In This Table")
+  #     |> Table.put_column_meta(0..1, padding: 0)
+  #     |> Table.put_column_meta(2, padding: 1)
+  #     |> Table.render()
+
+  #   assert rendered == """
+  #          +------------------------------------------------------------+
+  #          | Renegade Hardware Releases That Are Present In This Table  |
+  #          +--------------------+--------------------------+------------+
+  #          |Artist              |Track                     | Year       |
+  #          +--------------------+--------------------------+------------+
+  #          |Konflict            |Cyanide                   | 1999       |
+  #          |Keaton & Hive       |The Plague                | 2003       |
+  #          |Vicious Circle      |Welcome To Shanktown      | 2007       |
+  #          |Eunmi Lee           |I Have a Lover      | 2005       |
+  #          |Korean singer that I like           |      |        |
+  #          +--------------------+--------------------------+------------+
+  #          """
+  # end
+
+  # test "multiple lines in a cell", %{
+  #   table: _table
+  # } do
+  #   title = "Renegade Hardware Releases"
+  #   header = ["Artist", "Track", "Year"]
+
+  #   rows = [
+  #     ["Konflict", "Cyanide", 1999],
+  #     ["Keaton & Hive", "The Plague", 2003],
+  #     ["Eunmi Lee\nKorean singer that I like", "I Have a Lover", 2005]
+  #   ]
+
+  #   table = Table.new(rows, header, title)
+
+  #   {:ok, rendered} =
+  #     table
+  #     |> Table.put_title("Renegade Hardware Releases That Are Present In This Table")
+  #     |> Table.put_column_meta(0..1, padding: 0)
+  #     |> Table.put_column_meta(2, padding: 1)
+  #     |> Table.render()
+
+  #   assert rendered == """
+  #          +------------------------------------------------------------+
+  #          | Renegade Hardware Releases That Are Present In This Table  |
+  #          +--------------------+--------------------------+------------+
+  #          |Artist              |Track                     | Year       |
+  #          +--------------------+--------------------------+------------+
+  #          |Konflict            |Cyanide                   | 1999       |
+  #          |Keaton & Hive       |The Plague                | 2003       |
+  #          |Eunmi Lee           |I Have a Lover      | 2005       |
+  #          |Korean singer that I like           |      |        |
+  #          +--------------------+--------------------------+------------+
+  #          """
+  # end
+
 end

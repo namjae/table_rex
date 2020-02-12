@@ -294,14 +294,14 @@ defmodule TableRex.Renderer.Text do
   end
 
   defp do_render_cell(value, inner_width, _padding, align: :center) do
-    value_len = String.length(strip_ansi_color_codes(value))
+    value_len = display_length(strip_ansi_color_codes(value))
     post_value = ((inner_width - value_len) / 2) |> round
     pre_value = inner_width - (post_value + value_len)
     String.duplicate(" ", pre_value) <> value <> String.duplicate(" ", post_value)
   end
 
   defp do_render_cell(value, inner_width, padding, align: align) do
-    value_len = String.length(strip_ansi_color_codes(value))
+    value_len = display_length(strip_ansi_color_codes(value))
     alt_side_padding = inner_width - value_len - padding
 
     {pre_value, post_value} =
@@ -352,7 +352,7 @@ defmodule TableRex.Renderer.Text do
     # Compare table body width with title width
     col_separators_widths = num_columns - 1
     body_width = (col_widths |> Map.values() |> Enum.sum()) + col_separators_widths
-    title_width = if(is_nil(table.title), do: 0, else: String.length(table.title)) + title_padding
+    title_width = if(is_nil(table.title), do: 0, else: display_length(table.title)) + title_padding
 
     # Add extra padding equally to all columns if required to match body and title width.
     revised_col_widths =
@@ -392,7 +392,7 @@ defmodule TableRex.Renderer.Text do
       |> String.split("\n")
 
     height = Enum.count(lines)
-    width = Enum.max(lines) |> String.length()
+    width = lines |> Enum.map(&display_length/1) |> Enum.max()
     {width + padding * 2, height}
   end
 
@@ -439,5 +439,9 @@ defmodule TableRex.Renderer.Text do
 
   defp strip_ansi_color_codes(text) do
     Regex.replace(~r|\e\[\d+m|u, text, "")
+  end
+
+  defp display_length(text) do
+    String.length(text) + div((byte_size(text) - length(String.codepoints(text))), 2)
   end
 end
